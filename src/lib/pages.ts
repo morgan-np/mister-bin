@@ -13,7 +13,24 @@ export interface PageData {
 
 const pages = pagesData as unknown as Record<string, PageData>;
 
+// Limit SSG to top-priority pages for initial deployment
+const DEPLOY_SLUGS: string[] | null = [
+  'cache-poubelle',
+  'cache-poubelle-exterieur',
+  'cache-poubelle-jardin',
+  'abri-poubelle',
+  'poubelle-cuisine',
+  'poubelle-salle-de-bain',
+  'poubelle-bureau',
+  'poubelle-tri-selectif',
+  'poubelle-compost',
+  'composteur-appartement',
+  'poubelle-automatique',
+  'poubelle-50l-cuisine',
+];
+
 export function getAllSlugs(): string[] {
+  if (DEPLOY_SLUGS) return DEPLOY_SLUGS.filter((s) => s in pages);
   return Object.keys(pages);
 }
 
