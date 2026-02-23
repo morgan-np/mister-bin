@@ -1,0 +1,17 @@
+node_modules
+.next
+.git
+*.md
+docs/
+scripts/
+*.csv
+*.pyc
+__pycache__
+.venv
+.env
+.env.*
+.DS_Store
+CLAUDE.md
+data/CLAUDE.md
+docs/CLAUDE.md
+scripts/CLAUDE.md
