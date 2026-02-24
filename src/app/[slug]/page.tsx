@@ -29,52 +29,48 @@ export default async function SlugPage({ params }: Props) {
     .slice(0, 8);
 
   return (
-    <main style={{ maxWidth: 720, margin: '0 auto', padding: '2rem 1rem', fontFamily: 'system-ui, sans-serif' }}>
-      <nav style={{ marginBottom: '1.5rem', fontSize: '0.9rem' }}>
-        <Link href="/">← Accueil</Link>
+    <>
+      <nav className="breadcrumb">
+        <Link href="/">Accueil</Link> &rsaquo; <span>{page.category}</span> &rsaquo;{' '}
+        <span>{page.title}</span>
       </nav>
 
-      <h1 style={{ fontSize: '1.8rem', marginBottom: '0.5rem' }}>{page.title}</h1>
+      <article>
+        <header className="article-header">
+          <h1>{page.title}</h1>
+          {page.description && <p style={{ color: 'var(--gray-600)' }}>{page.description}</p>}
+          <div className="article-tags" style={{ marginTop: '0.75rem' }}>
+            <span className="tag">{page.category}</span>
+            <span className="tag">priorite : {page.priority}</span>
+            {page.haloscan_volume != null && typeof page.haloscan_volume === 'number' && (
+              <span className="tag">{page.haloscan_volume.toLocaleString('fr-FR')} rech./mois</span>
+            )}
+            {page.haloscan_kd != null && typeof page.haloscan_kd === 'number' && (
+              <span className="tag">KD : {page.haloscan_kd}</span>
+            )}
+          </div>
+        </header>
 
-      {page.description && (
-        <p style={{ color: '#555', marginBottom: '1.5rem' }}>{page.description}</p>
-      )}
-
-      <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', marginBottom: '2rem' }}>
-        <span style={{ background: '#f0f0f0', padding: '0.25rem 0.75rem', borderRadius: 20, fontSize: '0.85rem' }}>
-          {page.category}
-        </span>
-        <span style={{ background: '#f0f0f0', padding: '0.25rem 0.75rem', borderRadius: 20, fontSize: '0.85rem' }}>
-          priorité : {page.priority}
-        </span>
-        {page.haloscan_volume != null && typeof page.haloscan_volume === 'number' && (
-          <span style={{ background: '#f0f0f0', padding: '0.25rem 0.75rem', borderRadius: 20, fontSize: '0.85rem' }}>
-            {page.haloscan_volume.toLocaleString('fr-FR')} rech./mois
-          </span>
-        )}
-      </div>
-
-      <section style={{ padding: '1.5rem', background: '#fafafa', borderRadius: 8, marginBottom: '2rem' }}>
-        <p style={{ color: '#666' }}>
-          Contenu à venir — cette page sera enrichie avec des comparatifs produits,
-          guides d&apos;achat et liens d&apos;affiliation.
-        </p>
-      </section>
+        <div className="article-placeholder">
+          <p>
+            Contenu a venir &mdash; cette page sera enrichie avec des comparatifs produits, guides
+            d&apos;achat et liens d&apos;affiliation.
+          </p>
+        </div>
+      </article>
 
       {related.length > 0 && (
-        <section>
-          <h2 style={{ fontSize: '1.2rem', borderBottom: '1px solid #ddd', paddingBottom: '0.3rem' }}>
-            Dans la même catégorie
-          </h2>
-          <ul style={{ listStyle: 'none', padding: 0 }}>
+        <section className="related-section">
+          <h2>Dans la meme categorie</h2>
+          <ul className="page-list">
             {related.map((r) => (
-              <li key={r.slug} style={{ padding: '0.35rem 0' }}>
+              <li key={r.slug}>
                 <Link href={`/${r.slug}`}>{r.title}</Link>
               </li>
             ))}
           </ul>
         </section>
       )}
-    </main>
+    </>
   );
 }
